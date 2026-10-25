@@ -182,6 +182,24 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: <span className="text-xs font-bold">MCP</span>,
   },
+  android: {
+    title: "Android",
+    bg: "#173b2c",
+    fg: "#a3e635",
+    icon: <span className="text-xs font-bold">AND</span>,
+  },
+  kotlin: {
+    title: "Kotlin",
+    bg: "#29204f",
+    fg: "#c4b5fd",
+    icon: <span className="text-xs font-bold">Kt</span>,
+  },
+  gemini: {
+    title: "Gemini",
+    bg: "#142747",
+    fg: "#93c5fd",
+    icon: <span className="text-xs font-bold">G</span>,
+  },
 };
 export type Project = {
   id: string;
@@ -203,7 +221,7 @@ const projects: Project[] = [
     screenshots: [],
     github: "https://github.com/Kentaakakashi/Theo-AI",
     live: "#",
-    skills: { frontend: [], backend: [] },
+    skills: { frontend: [PROJECT_SKILLS.android, PROJECT_SKILLS.kotlin], backend: [PROJECT_SKILLS.gemini] },
     get content() {
       return (
         <div>
