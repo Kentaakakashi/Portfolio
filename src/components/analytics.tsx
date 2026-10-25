@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-const ENDPOINT = "https://nareshkhatri.dev/api/collect";
+const ENDPOINT = "/api/collect";
 const KEY = "portfolio:site";
 
 const isLocal = (h: string) =>
