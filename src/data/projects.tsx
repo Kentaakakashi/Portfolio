@@ -266,6 +266,31 @@ const projects: Project[] = [
     },
   },
   {
+    id: "god-who-forgot",
+    category: "Indie game · Early development",
+    title: "The God Who Forgot",
+    src: "/assets/projects-screenshots/kenta/god-who-forgot.svg",
+    screenshots: [],
+    live: "#",
+    skills: { frontend: [], backend: [] },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            A melancholic fantasy RPG about a mysterious wanderer who has forgotten who they are.
+          </TypographyP>
+          <TypographyP className="font-mono">
+            An early-stage game project exploring atmosphere, pixel-art presentation, character design, and world-building. The focus is on creating a cohesive, emotionally driven game rather than rushing into a large production.
+          </TypographyP>
+          <TypographyH3 className="my-4 mt-8">Current status</TypographyH3>
+          <p className="font-mono mb-2">
+            Concept and asset exploration. Gameplay systems, world maps, and final implementation are still being developed.
+          </p>
+        </div>
+      );
+    },
+  },
+  {
     id: "portfolio",
     category: "Personal site · Open source",
     title: "This Portfolio",
