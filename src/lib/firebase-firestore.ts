@@ -114,7 +114,7 @@ export async function incrementKeyboardCount(skill: string, amount = 1) {
     body: JSON.stringify({
       writes: [{
         transform: {
-          document: `${firestoreBase()}/keyboardCounts/${skill}`,
+          document: `projects/${account.project_id}/databases/(default)/documents/keyboardCounts/${skill}`,
           fieldTransforms: [{ fieldPath: "count", increment: { integerValue: String(amount) } }],
         },
       }],
