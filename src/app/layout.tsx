@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Space_Grotesk, Unbounded } from "next/font/google";
 import "./globals.css";
 import { config } from "@/data/config";
@@ -85,9 +86,11 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <SiteFrame githubStars={<GitHubStars className="mr-4" />}>
-            {children}
-          </SiteFrame>
+          <Suspense fallback={children}>
+            <SiteFrame githubStars={<GitHubStars className="mr-4" />}>
+              {children}
+            </SiteFrame>
+          </Suspense>
         </Providers>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
