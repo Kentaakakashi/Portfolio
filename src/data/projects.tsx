@@ -226,14 +226,14 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            An Android assistant with personality — built to feel like a capable teammate, not a sterile chatbot.
+            An Android AI sidekick with main-character energy — less “Dear valued user,” more “alright, let’s fix this.”
           </TypographyP>
           <TypographyP className="font-mono">
-            Theo is my ongoing mobile AI project. The current direction uses Gemini as its primary model, with a focus on helpful conversation, tutoring, and a more natural assistant experience.
+            Theo is my attempt to build the kind of assistant I’d actually want on my phone: useful, conversational, a little chaotic, and capable of explaining things without making me feel like I accidentally opened a university textbook. Gemini is the primary model, with the experience focused on everyday help, learning, and a personality that feels more teammate than talking search bar.
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">What I'm exploring</TypographyH3>
           <p className="font-mono mb-2">
-            Native Android integration, conversational UX, screen-aware assistance, persistent context, and reliable user-controlled automation. These are active development goals, not claims that every feature is finished.
+            The long game: native Android integration, screen-aware help, context that survives beyond one chat, and automation that stays under the user's control. Basically, the dream is “handle the boring steps” — not “give a robot the keys to the kingdom.” These are active development goals, so the mission is still very much in progress.
           </p>
           <ProjectsLinks repo={this.github} />
         </div>
@@ -252,14 +252,14 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            A security-minded developer-tools project, being shaped around making APIs easier to inspect and trust.
+            APIs are great until one mysterious response ruins your afternoon. API Sentinel is a developer-tools concept aimed at making API behaviour easier to inspect, reason about, and trust — because “it works on my machine” is not a monitoring strategy.
           </TypographyP>
           <TypographyP className="font-mono">
-            API Sentinel is listed as a work in progress. This portfolio will get a concrete feature breakdown, screenshots, and a source link once the public version is ready.
+            The idea is to give developers a clearer view of what their APIs are doing and make debugging feel less like interrogating a haunted terminal. The exact public feature set is still taking shape, so this card will get more specifics when the project has a shareable build.
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">Status</TypographyH3>
           <p className="font-mono mb-2">
-            In development. No invented user counts, performance claims, or production metrics — just the project as it stands.
+            Status: cooking. The security cape is on, the roadmap is being sharpened, and no imaginary “10 million requests secured” statistics were harmed in the making of this portfolio.
           </p>
         </div>
       );
@@ -277,14 +277,14 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            A melancholic fantasy RPG about a mysterious wanderer who has forgotten who they are.
+            A melancholic pixel-art fantasy RPG where the protagonist has forgotten who they are. Which is inconvenient, because apparently the universe still expects them to have a plot.
           </TypographyP>
           <TypographyP className="font-mono">
-            An early-stage game project exploring atmosphere, pixel-art presentation, character design, and world-building. The focus is on creating a cohesive, emotionally driven game rather than rushing into a large production.
+            The God Who Forgot is being shaped around atmosphere, lonely roads, memorable places, character sprites, and the slow reveal of a world with more questions than answers. Think wistful fantasy, pixel-art soul, and lore that probably should come with a “do not emotionally attach” warning. The goal is to build a cohesive experience first, rather than speedrun a giant RPG and drown in unfinished maps.
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">Current status</TypographyH3>
           <p className="font-mono mb-2">
-            Concept and asset exploration. Gameplay systems, world maps, and final implementation are still being developed.
+            Current chapter: concept and asset exploration. Characters, maps, NPC-filled places, and gameplay systems are still being figured out. The gods may be missing, but the scope creep is very much alive.
           </p>
         </div>
       );
@@ -303,10 +303,10 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            The Black Dragons community bot and its supporting systems.
+            A JavaScript-powered bot for the Black Dragons community — the digital dragon that helps keep the server’s systems breathing. Less mythical fire-breathing, more tokens, database calls, and making sure the backend doesn’t spontaneously become a side quest.
           </TypographyP>
           <TypographyP className="font-mono">
-            A JavaScript project connected to the Black Dragons community, using Oracle for tokens and Firebase for its database.
+            The project uses Oracle for tokens and Firebase for its database, tying the bot into the community’s wider tooling. It’s the behind-the-scenes kind of work: not always flashy in a screenshot, but very noticeable when the automation is missing and everyone starts asking “yo, is the bot down?”
           </TypographyP>
           <ProjectsLinks repo={this.github} />
         </div>
@@ -326,10 +326,10 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            The official web experience for the Black Dragons community.
+            A home base for the Black Dragons community — with more going on than a landing page and a dramatic dragon logo. It brings member identity, clan activity, recruitment, events, announcements, and community information into one web experience.
           </TypographyP>
           <TypographyP className="font-mono">
-            A React, TypeScript, and Vite site with Discord sign-in, Roblox account ownership verification, recruitment applications, events, announcements, and community pages.
+            Built with React, TypeScript, and Vite, the site includes Discord authentication, Roblox account ownership verification, recruitment applications, events, announcements, staff and community pages, and member-facing information. It also keeps sensitive actions server-side and treats the bot’s canonical player data as read-only. Translation: the website can look cool without being allowed to casually rewrite the clan’s stats like an admin with butterfingers.
           </TypographyP>
           <ProjectsLinks repo={this.github} />
         </div>
@@ -342,16 +342,17 @@ const projects: Project[] = [
     title: "NorthStar",
     src: "/assets/projects-screenshots/kenta/northstar.svg",
     screenshots: [],
-    live: "#",
-    skills: { frontend: [], backend: [PROJECT_SKILLS.gemini] },
+    github: "https://github.com/Kentaakakashi/Northstar",
+    live: "https://northstar-path.netlify.app",
+    skills: { frontend: [PROJECT_SKILLS.react, PROJECT_SKILLS.ts, PROJECT_SKILLS.vite, PROJECT_SKILLS.motion], backend: [PROJECT_SKILLS.gemini] },
     get content() {
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            An AI-powered goal-planning project designed to help turn ambitions into clear next steps.
+            Know where you’re going. And if the route collapses halfway there, find another one. NorthStar is an adaptive life-planning system for turning a big, fuzzy ambition into a destination with multiple possible routes.
           </TypographyP>
           <TypographyP className="font-mono">
-            NorthStar explores using AI to make goals easier to organize, understand, and act on. More implementation details and a public source link can be added as the project is published.
+            Instead of throwing a motivational quote at a complicated life problem and calling it a day, NorthStar starts with what you actually want, examines real-world constraints, explores trade-offs, and maps goals into routes, milestones, and next actions. When reality changes, the plan should adapt instead of guilt-tripping you with a checklist from three weeks ago. The guiding principle: AI can propose the route; you still drive.
           </TypographyP>
         </div>
       );
@@ -369,10 +370,10 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            A Discord-focused widget project for bringing community presence into a web experience.
+            A little bridge between a website and the Discord-shaped corner of the internet where the community actually hangs out.
           </TypographyP>
           <TypographyP className="font-mono">
-            This project is included in the portfolio as part of my work with Discord integrations. A public repository or live demo can be linked here when available.
+            The goal is to make community presence feel like part of the site instead of a lonely “Join our Discord” button abandoned in the footer. This card represents my Discord-widget work; the public source/demo link can be attached once the standalone project URL is ready.
           </TypographyP>
         </div>
       );
