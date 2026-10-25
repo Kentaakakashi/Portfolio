@@ -1,0 +1,43 @@
+name: Import 3D Portfolio Template
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - ".github/workflows/import-template.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: import-3d-portfolio
+  cancel-in-progress: false
+
+jobs:
+  import-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out your portfolio repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Import template files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/Naresh-Khatri/3d-portfolio.git /tmp/3d-portfolio
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.github/workflows/' \
+            --exclude='public/Naresh_Khatri_Resume.pdf' \
+            /tmp/3d-portfolio/ ./
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Template files already imported."
+            exit 0
+          fi
+          git commit -m "Import open-source 3D portfolio template"
+          git push origin HEAD:main
