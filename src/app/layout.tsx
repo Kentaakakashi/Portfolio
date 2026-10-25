@@ -6,7 +6,6 @@ import { config } from "@/data/config";
 
 import Script from "next/script";
 import SiteFrame from "@/components/site-frame";
-import GitHubStars from "@/components/header/github-stars";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { UMAMI_SRC } from "@/lib/umami";
@@ -87,7 +86,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Suspense fallback={children}>
-            <SiteFrame githubStars={<GitHubStars className="mr-4" />}>
+            <SiteFrame>
               {children}
             </SiteFrame>
           </Suspense>
