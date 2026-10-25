@@ -3,7 +3,6 @@ import { config } from "@/data/config";
 import { Resend } from "resend";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 3;
@@ -41,6 +40,16 @@ export async function POST(req: Request) {
     if (!zodSuccess)
       return Response.json({ error: zodError?.message }, { status: 400 });
 
+    // The portfolio can build without email credentials. Configure both values
+    // before enabling the contact-email endpoint in a deployment.
+    if (!process.env.RESEND_API_KEY || !config.email) {
+      return Response.json(
+        { error: "Contact email is not configured on this deployment." },
+        { status: 503 },
+      );
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { data: resendData, error: resendError } = await resend.emails.send({
       from: "Porfolio <onboarding@resend.dev>",
       to: [config.email],
