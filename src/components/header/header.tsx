@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import FunnyThemeToggle from "../theme/funny-theme-toggle";
 import { Button } from "../ui/button";
 import { config } from "@/data/config";
+import OnlineUsers from "@/components/realtime/online-users";
 
 interface HeaderProps {
   loader?: boolean;
@@ -30,6 +31,7 @@ const Header = ({ loader }: HeaderProps) => {
         <Link href="/" className="flex items-center justify-center">
           <Button variant={"link"} className="text-md">{config.author}</Button>
         </Link>
+        {isHome && <div className="mr-2"><OnlineUsers /></div>}
         <FunnyThemeToggle className="w-6 h-6 mr-4 hidden md:flex" />
         <Button variant={"ghost"} onClick={() => setIsActive(!isActive)} aria-label={isActive ? "Close menu" : "Open menu"} aria-expanded={isActive} className={cn(styles.el, "m-0 p-0 h-6 bg-transparent flex items-center justify-center")}>
           <div className="relative hidden md:flex items-center">
