@@ -15,9 +15,9 @@ function MainPage() {
   return (
     <SmoothScroll>
       <AnimatedBackground />
-      <main className={cn("bg-slate-100 dark:bg-transparent canvas-overlay-mode")}>
+      <main className={cn("bg-slate-100 dark:bg-transparent")}>
         <HeroSection />
-        <div className="relative z-20 mx-auto -mt-20 mb-8 flex w-fit justify-center md:-mt-24"><OnlineUsers /></div>
+        <OnlineUsers />
         <SkillsSection />
         <ExperienceSection />
         <ProjectsSection />
