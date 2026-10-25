@@ -51,7 +51,11 @@ async function accessToken() {
     }),
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Firebase service-account token request failed");
+  if (!response.ok) {
+    const error = new Error(`Firebase service-account token request failed (HTTP ${response.status})`) as Error & { code?: string | number };
+    error.code = response.status;
+    throw error;
+  }
   const data = await response.json() as { access_token: string; expires_in: number };
   cachedToken = { value: data.access_token, expiresAt: Date.now() + data.expires_in * 1000 };
   return data.access_token;
@@ -61,13 +65,35 @@ function firestoreBase() {
   return `https://firestore.googleapis.com/v1/projects/${getAccount().project_id}/databases/(default)/documents`;
 }
 
+async function firestoreError(response: Response, operation: string): Promise<Error & { code?: string | number }> {
+  let apiMessage = "Firestore returned an error without a readable message";
+  let apiCode: string | number = response.status;
+  try {
+    const payload = await response.json() as {
+      error?: { code?: number; status?: string; message?: string };
+    };
+    if (payload.error?.message) apiMessage = payload.error.message;
+    if (payload.error?.status) apiCode = payload.error.status;
+    else if (payload.error?.code !== undefined) apiCode = payload.error.code;
+  } catch {
+    // Keep the safe HTTP status diagnostic if the response isn't JSON.
+  }
+  const originalError = new Error(apiMessage) as Error & { code?: string | number };
+  originalError.code = apiCode;
+  const wrapped = new Error(`${operation} failed (HTTP ${response.status}; code ${String(apiCode)}): ${apiMessage}`, {
+    cause: originalError,
+  }) as Error & { code?: string | number };
+  wrapped.code = apiCode;
+  return wrapped;
+}
+
 export async function listKeyboardCounts() {
   const token = await accessToken();
   const response = await fetch(`${firestoreBase()}/keyboardCounts?pageSize=100`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Firestore keyboard count read failed");
+  if (!response.ok) throw await firestoreError(response, "Firestore keyboard count read");
   const body = await response.json() as { documents?: { name: string; fields?: { count?: { integerValue?: string } } }[] };
   const counts: Record<string, number> = {};
   for (const document of body.documents ?? []) {
@@ -95,7 +121,7 @@ export async function incrementKeyboardCount(skill: string, amount = 1) {
     }),
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Firestore keyboard count increment failed");
+  if (!response.ok) throw await firestoreError(response, "Firestore keyboard count increment");
 }
 
 
@@ -112,7 +138,7 @@ export async function listChatMessages(): Promise<PublicChatMessage[]> {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Firestore chat read failed");
+  if (!response.ok) throw await firestoreError(response, "Firestore chat read");
   const body = await response.json() as { documents?: { name: string; fields?: Record<string, { stringValue?: string }> }[] };
   return (body.documents ?? []).map((doc) => ({
     id: doc.name.split("/").pop() ?? "",
@@ -134,7 +160,7 @@ export async function createChatMessage(name: string, text: string): Promise<Pub
     } }),
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Firestore chat write failed");
+  if (!response.ok) throw await firestoreError(response, "Firestore chat write");
   const doc = await response.json() as { name: string; fields?: Record<string, { stringValue?: string }> };
   return {
     id: doc.name.split("/").pop() ?? "",
