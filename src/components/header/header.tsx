@@ -10,16 +10,12 @@ import { cn } from "@/lib/utils";
 import FunnyThemeToggle from "../theme/funny-theme-toggle";
 import { Button } from "../ui/button";
 import { config } from "@/data/config";
-import OnlineUsers from "../realtime/online-users";
-import { GameTrigger } from "../game/game-trigger";
 
 interface HeaderProps {
   loader?: boolean;
-  // server-rendered slot; client header can't fetch it itself without a mount-time shift
-  githubStars?: React.ReactNode;
 }
 
-const Header = ({ loader, githubStars }: HeaderProps) => {
+const Header = ({ loader }: HeaderProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const isHome = usePathname() === "/";
   return (
@@ -59,13 +55,6 @@ const Header = ({ loader, githubStars }: HeaderProps) => {
         </Link>
 
         <FunnyThemeToggle className="w-6 h-6 mr-4 hidden md:flex" />
-        {isHome && process.env.NEXT_PUBLIC_WS_URL && (
-          <div className="flex items-center">
-            <GameTrigger className="mr-3" />
-            <OnlineUsers />
-          </div>
-        )}
-        {githubStars}
         <Button
           variant={"ghost"}
           onClick={() => setIsActive(!isActive)}
