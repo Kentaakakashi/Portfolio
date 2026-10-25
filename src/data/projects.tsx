@@ -354,6 +354,7 @@ const projects: Project[] = [
           <TypographyP className="font-mono">
             Instead of throwing a motivational quote at a complicated life problem and calling it a day, NorthStar starts with what you actually want, examines real-world constraints, explores trade-offs, and maps goals into routes, milestones, and next actions. When reality changes, the plan should adapt instead of guilt-tripping you with a checklist from three weeks ago. The guiding principle: AI can propose the route; you still drive.
           </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
         </div>
       );
     },
