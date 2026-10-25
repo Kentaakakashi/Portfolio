@@ -13,22 +13,22 @@ import ContactForm from "@/components/ContactForm";
 
 const ContactSection = () => {
   return (
-    <SectionWrapper id="contact" className="min-h-[70vh] max-w-7xl mx-auto flex flex-col justify-center">
+    <SectionWrapper id="contact" className="min-h-[70vh] w-full max-w-7xl mx-auto flex flex-col justify-center px-2 sm:px-4">
       <SectionHeader
         id="contact"
-        className="relative mb-10"
+        className="relative mb-10 text-center px-2"
         title={<>LET&apos;S CONNECT</>}
         desc="Have an idea, question, or collaboration in mind? Send me a message."
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 z-[1] mx-4 items-start">
-        <Card className="bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl">
+      <div className="grid w-full min-w-0 grid-cols-1 md:grid-cols-2 gap-6 z-[1] px-2 sm:px-4 items-start">
+        <Card className="w-full min-w-0 overflow-hidden bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl">
           <CardHeader>
             <CardTitle className="text-3xl">Contact Form</CardTitle>
             <CardDescription>
               Please contact me directly at {config.email} or drop your info here.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="min-w-0">
             <ContactForm />
           </CardContent>
         </Card>
