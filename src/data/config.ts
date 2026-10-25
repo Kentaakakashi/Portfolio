@@ -1,15 +1,15 @@
 const config = {
-  title: "Kenta Kakashi | Builder, Developer & CS Student",
+  title: "Naren Kumar | Builder, Developer & CS Student",
   description: {
-    long: "I'm Kenta Kakashi — a computer science student and independent builder exploring Android AI, thoughtful web experiences, and useful tools. This is a living portfolio of projects I'm building, learning from, and improving in public.",
-    short: "Kenta Kakashi — computer science student building Android AI tools, web experiences, and practical software.",
+    long: "I'm Naren Kumar (aka Kenta Kakashi) — a computer science student and independent builder exploring Android AI, thoughtful web experiences, and useful tools. This is a living portfolio of projects I'm building, learning from, and improving in public.",
+    short: "Naren Kumar — computer science student, also known online as Kenta Kakashi building Android AI tools, web experiences, and practical software.",
   },
   keywords: [
-    "Kenta Kakashi", "Kentaakakashi", "computer science student",
+    "Naren Kumar", "Kenta Kakashi", "Kentaakakashi", "computer science student",
     "Android development", "AI assistant", "Gemini", "React",
     "Next.js", "TypeScript", "open source", "software projects",
   ],
-  author: "Kenta Kakashi",
+  author: "Naren Kumar",
   email: "",
   site: "https://github.com/Kentaakakashi/Portfolio",
   githubUsername: "Kentaakakashi",
