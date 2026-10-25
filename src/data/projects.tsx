@@ -336,5 +336,47 @@ const projects: Project[] = [
       );
     },
   },
+  {
+    id: "northstar",
+    category: "AI · Goal planning",
+    title: "NorthStar",
+    src: "/assets/projects-screenshots/kenta/northstar.svg",
+    screenshots: [],
+    live: "#",
+    skills: { frontend: [], backend: [PROJECT_SKILLS.gemini] },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            An AI-powered goal-planning project designed to help turn ambitions into clear next steps.
+          </TypographyP>
+          <TypographyP className="font-mono">
+            NorthStar explores using AI to make goals easier to organize, understand, and act on. More implementation details and a public source link can be added as the project is published.
+          </TypographyP>
+        </div>
+      );
+    },
+  },
+  {
+    id: "discord-widget",
+    category: "Web · Discord integration",
+    title: "Discord Widget",
+    src: "/assets/projects-screenshots/kenta/discord-widget.svg",
+    screenshots: [],
+    live: "#",
+    skills: { frontend: [PROJECT_SKILLS.react, PROJECT_SKILLS.ts], backend: [] },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            A Discord-focused widget project for bringing community presence into a web experience.
+          </TypographyP>
+          <TypographyP className="font-mono">
+            This project is included in the portfolio as part of my work with Discord integrations. A public repository or live demo can be linked here when available.
+          </TypographyP>
+        </div>
+      );
+    },
+  },
 ];
 export default projects;
