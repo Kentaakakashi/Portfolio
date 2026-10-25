@@ -49,12 +49,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) return Response.json({ error: "Email delivery is not configured yet." }, { status: 503 });
     const resend = new Resend(apiKey);
     const { data: resendData, error: resendError } = await resend.emails.send({
-      from: "Porfolio <onboarding@resend.dev>",
+      from: process.env.RESEND_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
       to: [config.email],
       subject: "Contact me from portfolio",
       react: EmailTemplate({
