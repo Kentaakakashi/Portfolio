@@ -15,7 +15,7 @@ const config = {
   githubUsername: "Kentaakakashi",
   githubRepo: "Portfolio",
   get ogImg() {
-    return this.site + "/assets/seo/og-image.png";
+    return "https://raw.githubusercontent.com/Kentaakakashi/Portfolio/main/public/assets/projects-screenshots/kenta/portfolio.svg";
   },
   social: {
     github: "https://github.com/Kentaakakashi",
