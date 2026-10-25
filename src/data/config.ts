@@ -19,6 +19,10 @@ const config = {
   },
   social: {
     github: "https://github.com/Kentaakakashi",
+    twitter: "",
+    linkedin: "",
+    instagram: "",
+    facebook: "",
   },
 };
 export { config };
