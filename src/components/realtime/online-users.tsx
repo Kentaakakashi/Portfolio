@@ -80,12 +80,12 @@ export default function OnlineUsers() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="fixed bottom-5 right-5 z-[100] h-12 w-12 rounded-xl border-2 border-white/30 bg-background/80 p-0 shadow-xl backdrop-blur-xl transition-transform hover:scale-105 hover:bg-background" aria-label="Open community chat">
+        <Button variant="ghost" className="fixed bottom-5 right-5 z-[1200] h-12 w-12 rounded-xl border-2 border-white/30 bg-background/80 p-0 shadow-xl backdrop-blur-xl transition-transform hover:scale-105 hover:bg-background" aria-label="Open community chat">
           {open ? <X className="h-5 w-5" /> : <Users2 className="h-5 w-5" />}
           <span className={`absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-background ${connected ? "bg-emerald-500" : "bg-amber-500"}`} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" side="top" sideOffset={14} className="z-[110] mr-2 flex h-[min(72vh,560px)] w-[min(94vw,390px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-background/95 p-0 shadow-2xl backdrop-blur-2xl">
+      <PopoverContent align="end" side="top" sideOffset={14} className="z-[1201] mr-2 flex h-[min(72vh,560px)] w-[min(94vw,390px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-background/95 p-0 shadow-2xl backdrop-blur-2xl">
         <div className="flex items-center justify-between border-b bg-muted/30 px-4 py-3">
           <div className="flex items-center gap-3"><div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10"><Hash className="h-4 w-4" /></div><div><div className="font-semibold leading-tight">Community chat</div><div className="mt-1 text-[11px] text-muted-foreground"># general · everyone is welcome</div></div></div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">{connected ? <Wifi className="h-3.5 w-3.5 text-green-500" /> : <WifiOff className="h-3.5 w-3.5 text-amber-500" />}{connected ? "Live" : "Connecting"}</div>
