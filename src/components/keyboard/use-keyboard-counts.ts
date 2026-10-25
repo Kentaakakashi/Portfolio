@@ -29,9 +29,7 @@ export function useKeyboardCounts() {
   }, [sync]);
 
   const recordPress = useCallback((skill: string) => {
-    if (!available || !skills.has(skill)) return;
-    // Each deliberate press is one server-side atomic increment. Never queue
-    // presses while offline, so reconnecting cannot inflate the public total.
+    if (!skills.has(skill)) return;
     void fetch("/api/keyboard-counts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -39,8 +37,9 @@ export function useKeyboardCounts() {
       keepalive: true,
     }).then((response) => {
       if (response.ok) void sync();
+      else setAvailable(false);
     }).catch(() => setAvailable(false));
-  }, [available, sync]);
+  }, [sync]);
 
   return {
     counts,
