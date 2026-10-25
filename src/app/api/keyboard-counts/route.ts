@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { SKILLS } from "@/data/constants";
 import { incrementKeyboardCount, listKeyboardCounts } from "@/lib/firebase-firestore";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
 const allowedSkills = new Set(Object.values(SKILLS).map((skill) => skill.name));
 
 export async function GET() {
