@@ -68,6 +68,11 @@ const HeroSection = () => {
                     </TooltipContent>
                   </Tooltip>
                 </BlurIn>
+                <BlurIn delay={1.1}>
+                  <p className="mt-2 ml-1 text-xs sm:text-sm tracking-[0.22em] uppercase text-slate-500/80 dark:text-zinc-400/80">
+                    aka <span className="font-semibold tracking-[0.12em]">Kenta Kakashi</span>
+                  </p>
+                </BlurIn>
                 {/* <div className="md:block hidden bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 w-screen h-px animate-fade-right animate-glow" /> */}
                 <BlurIn delay={1.2}>
                   <p
