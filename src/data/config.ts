@@ -10,8 +10,8 @@ const config = {
     "Next.js", "TypeScript", "open source", "software projects",
   ],
   author: "Naren Kumar",
-  email: "",
-  site: "https://github.com/Kentaakakashi/Portfolio",
+  email: "narenkumar9500@gmail.com",
+  site: process.env.NEXT_PUBLIC_SITE_URL || "https://github.com/Kentaakakashi/Portfolio",
   githubUsername: "Kentaakakashi",
   githubRepo: "Portfolio",
   get ogImg() {
@@ -19,6 +19,7 @@ const config = {
   },
   social: {
     github: "https://github.com/Kentaakakashi",
+    discord: "https://discord.com/users/1105394446230638623",
     twitter: "",
     linkedin: "",
     instagram: "",
