@@ -291,34 +291,47 @@ const projects: Project[] = [
     },
   },
   {
-    id: "portfolio",
-    category: "Personal site · Open source",
-    title: "This Portfolio",
-    src: "/assets/projects-screenshots/kenta/portfolio.svg",
+    id: "black-dragons",
+    category: "Discord bot · Community tools",
+    title: "Black Dragons",
+    src: "/assets/projects-screenshots/kenta/black-dragons.svg",
     screenshots: [],
-    github: "https://github.com/Kentaakakashi/Portfolio",
+    github: "https://github.com/kentakakashi/Black_Dragons",
     live: "#",
-    skills: {
-      frontend: [PROJECT_SKILLS.next, PROJECT_SKILLS.react, PROJECT_SKILLS.ts, PROJECT_SKILLS.tailwind, PROJECT_SKILLS.motion],
-      backend: [],
-    },
+    skills: { frontend: [PROJECT_SKILLS.js], backend: [PROJECT_SKILLS.firebase] },
     get content() {
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            A 3D, space-inspired portfolio rebuilt around the things I'm actually making.
+            The Black Dragons community bot and its supporting systems.
           </TypographyP>
           <TypographyP className="font-mono">
-            The site is based on an open-source 3D portfolio template, customized with my own identity and public-facing work. The interactive keyboard and motion-led layout make the portfolio itself part of the showcase.
+            A JavaScript project connected to the Black Dragons community, using Oracle for tokens and Firebase for its database.
           </TypographyP>
-          <TypographyH3 className="my-4 mt-8">Built with</TypographyH3>
-          <p className="font-mono mb-2">
-            Next.js, React, TypeScript, Tailwind CSS, Three.js-based 3D components, and animation libraries from the original template.
-          </p>
           <ProjectsLinks repo={this.github} />
-          <p className="font-mono mb-2 text-sm opacity-70">
-            Original template by Naresh Khatri. See the repository LICENSE for terms and attribution.
-          </p>
+        </div>
+      );
+    },
+  },
+  {
+    id: "black-dragon-web",
+    category: "Community platform · Web",
+    title: "Black Dragons Website",
+    src: "/assets/projects-screenshots/kenta/black-dragon-web.svg",
+    screenshots: [],
+    github: "https://github.com/kentakakashi/Black-Dragon-web",
+    live: "#",
+    skills: { frontend: [PROJECT_SKILLS.react, PROJECT_SKILLS.ts], backend: [PROJECT_SKILLS.firebase] },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            The official web experience for the Black Dragons community.
+          </TypographyP>
+          <TypographyP className="font-mono">
+            A React, TypeScript, and Vite site with Discord sign-in, Roblox account ownership verification, recruitment applications, events, announcements, and community pages.
+          </TypographyP>
+          <ProjectsLinks repo={this.github} />
         </div>
       );
     },
