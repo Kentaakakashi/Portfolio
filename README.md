@@ -1,6 +1,8 @@
-# Kenta Kakashi — 3D Portfolio
+# Naren Kumar — 3D Portfolio
 
-A personal, space-inspired portfolio for the software I'm building and the things I'm learning in public.
+*Also known online as Kenta Kakashi.*
+
+A personal, space-inspired portfolio for Naren Kumar (aka Kenta Kakashi) for the software I'm building and the things I'm learning in public.
 
 ## Featured work
 
