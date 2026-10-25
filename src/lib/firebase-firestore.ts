@@ -78,7 +78,7 @@ export async function listKeyboardCounts() {
   return counts;
 }
 
-export async function incrementKeyboardCount(skill: string) {
+export async function incrementKeyboardCount(skill: string, amount = 1) {
   const token = await accessToken();
   const account = getAccount();
   const url = `https://firestore.googleapis.com/v1/projects/${account.project_id}/databases/(default)/documents:commit`;
@@ -89,7 +89,7 @@ export async function incrementKeyboardCount(skill: string) {
       writes: [{
         transform: {
           document: `${firestoreBase()}/keyboardCounts/${skill}`,
-          fieldTransforms: [{ fieldPath: "count", increment: { integerValue: "1" } }],
+          fieldTransforms: [{ fieldPath: "count", increment: { integerValue: String(amount) } }],
         },
       }],
     }),
