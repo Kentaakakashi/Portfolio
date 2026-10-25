@@ -181,7 +181,7 @@ export default function KeyboardScene({ maxDpr }: { maxDpr: number }) {
       />
       {section === "skills" && ready && (
         <div className="pointer-events-none fixed inset-x-4 bottom-8 z-20 text-center text-foreground">
-          <p className="sr-only">{available ? `${total.toLocaleString("en-US")} keyboard presses by all visitors` : "Shared keyboard count unavailable"}</p>
+          <p className="mb-2 text-sm text-muted-foreground">{available ? `${total.toLocaleString("en-US")} shared keyboard presses` : "Shared keyboard counter connecting…"}</p>
           <div aria-live="polite" className="sr-only">
             <p className="text-xl font-semibold">{selected?.label ?? "Explore my skills"}</p>
             <p className="mt-1 text-sm text-muted-foreground">
