@@ -12,10 +12,8 @@ import AppOverlays from "@/components/app-overlays";
  */
 export default function SiteFrame({
   children,
-  githubStars,
 }: {
   children: React.ReactNode;
-  githubStars?: React.ReactNode;
 }) {
   const pathname = usePathname();
   const bare = pathname?.startsWith("/components") ?? false;
@@ -24,7 +22,7 @@ export default function SiteFrame({
 
   return (
     <>
-      <Header githubStars={githubStars} />
+      <Header />
       {children}
       <Footer />
       <AppOverlays />
