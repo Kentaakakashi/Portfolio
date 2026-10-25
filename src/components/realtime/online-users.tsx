@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Hash, Send, Users2, Wifi, WifiOff, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { getFirebaseSession, realtimeUrl, writeRealtime } from "@/lib/firebase-realtime";
 
 type ChatMessage = { id: string; name: string; text: string; createdAt: string };
 
@@ -17,6 +18,8 @@ export default function OnlineUsers() {
   const [error, setError] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
   const lastSeen = useRef("");
+  const [onlineCount, setOnlineCount] = useState(0);
+  const [someoneTyping, setSomeoneTyping] = useState(false);
 
   useEffect(() => {
     try {
@@ -51,6 +54,71 @@ export default function OnlineUsers() {
     return () => window.clearInterval(id);
   }, [refresh]);
 
+  useEffect(() => {
+    let cancelled = false;
+    let heartbeat: number | undefined;
+    let typingPoll: number | undefined;
+    let uid = "";
+    let token = "";
+    const connect = async () => {
+      try {
+        const session = await getFirebaseSession();
+        if (cancelled) return;
+        uid = session.uid;
+        token = session.idToken;
+        const pulse = async () => {
+          try {
+            const current = await getFirebaseSession();
+            token = current.idToken;
+            await writeRealtime(`presence/${uid}`, token, { online: true, lastSeen: Date.now() });
+            const response = await fetch(realtimeUrl("presence", token), { cache: "no-store" });
+            if (response.ok) {
+              const users = await response.json() as Record<string, { online?: boolean; lastSeen?: number }> | null;
+              const now = Date.now();
+              setOnlineCount(Object.values(users ?? {}).filter((user) => user.online && typeof user.lastSeen === "number" && now - user.lastSeen < 60_000).length);
+            }
+            setConnected(true);
+          } catch { setConnected(false); }
+        };
+        await pulse();
+        heartbeat = window.setInterval(() => { void pulse(); }, 20_000);
+        typingPoll = window.setInterval(async () => {
+          try {
+            const current = await getFirebaseSession();
+            const response = await fetch(realtimeUrl("typing", current.idToken), { cache: "no-store" });
+            if (!response.ok) return;
+            const users = await response.json() as Record<string, { typing?: boolean; updatedAt?: number }> | null;
+            const now = Date.now();
+            setSomeoneTyping(Object.entries(users ?? {}).some(([id, value]) => id !== uid && value.typing && typeof value.updatedAt === "number" && now - value.updatedAt < 8_000));
+          } catch { /* best-effort status */ }
+        }, 2500);
+      } catch {
+        setError("Firebase sign-in failed. Check Anonymous Authentication and database rules.");
+      }
+    };
+    void connect();
+    return () => {
+      cancelled = true;
+      if (heartbeat) window.clearInterval(heartbeat);
+      if (typingPoll) window.clearInterval(typingPoll);
+      if (uid && token) void writeRealtime(`presence/${uid}`, token, { online: false, lastSeen: Date.now() }).catch(() => {});
+      if (uid && token) void writeRealtime(`typing/${uid}`, token, { typing: false, updatedAt: Date.now() }).catch(() => {});
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const updateTyping = async () => {
+      try {
+        const session = await getFirebaseSession();
+        if (cancelled) return;
+        await writeRealtime(`typing/${session.uid}`, session.idToken, { typing: Boolean(draft.trim()), updatedAt: Date.now() });
+      } catch { /* chat remains usable if typing status is unavailable */ }
+    };
+    void updateTyping();
+    return () => { cancelled = true; };
+  }, [draft]);
+
   async function sendMessage(event: React.FormEvent) {
     event.preventDefault();
     const text = draft.trim().slice(0, 500);
@@ -80,14 +148,14 @@ export default function OnlineUsers() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="fixed bottom-5 right-5 z-[1200] h-12 w-12 rounded-xl border-2 border-white/30 bg-background/80 p-0 shadow-xl backdrop-blur-xl transition-transform hover:scale-105 hover:bg-background" aria-label="Open community chat">
+        <Button variant="ghost" className="relative z-[1200] h-9 w-9 rounded-xl border border-white/20 bg-background/70 p-0 shadow-sm backdrop-blur-xl transition-transform hover:scale-105 hover:bg-background" aria-label="Open community chat">
           {open ? <X className="h-5 w-5" /> : <Users2 className="h-5 w-5" />}
           <span className={`absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-background ${connected ? "bg-emerald-500" : "bg-amber-500"}`} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" side="top" sideOffset={14} className="z-[1201] mr-2 flex h-[min(72vh,560px)] w-[min(94vw,390px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-background/95 p-0 shadow-2xl backdrop-blur-2xl">
+      <PopoverContent align="end" side="bottom" sideOffset={10} className="z-[1201] mr-2 flex h-[min(72vh,560px)] w-[min(94vw,390px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-background/95 p-0 shadow-2xl backdrop-blur-2xl">
         <div className="flex items-center justify-between border-b bg-muted/30 px-4 py-3">
-          <div className="flex items-center gap-3"><div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10"><Hash className="h-4 w-4" /></div><div><div className="font-semibold leading-tight">Community chat</div><div className="mt-1 text-[11px] text-muted-foreground"># general · everyone is welcome</div></div></div>
+          <div className="flex items-center gap-3"><div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10"><Hash className="h-4 w-4" /></div><div><div className="font-semibold leading-tight">Community chat</div><div className="mt-1 text-[11px] text-muted-foreground"># general · {onlineCount} online{someoneTyping ? " · someone is typing…" : " · everyone is welcome"}</div></div></div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">{connected ? <Wifi className="h-3.5 w-3.5 text-green-500" /> : <WifiOff className="h-3.5 w-3.5 text-amber-500" />}{connected ? "Live" : "Connecting"}</div>
         </div>
         <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-3">
