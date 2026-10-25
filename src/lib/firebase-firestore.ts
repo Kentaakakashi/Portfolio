@@ -97,3 +97,49 @@ export async function incrementKeyboardCount(skill: string) {
   });
   if (!response.ok) throw new Error("Firestore keyboard count increment failed");
 }
+
+
+export type PublicChatMessage = {
+  id: string;
+  name: string;
+  text: string;
+  createdAt: string;
+};
+
+export async function listChatMessages(): Promise<PublicChatMessage[]> {
+  const token = await accessToken();
+  const response = await fetch(`${firestoreBase()}/portfolioChat?pageSize=100&orderBy=createdAt%20desc`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error("Firestore chat read failed");
+  const body = await response.json() as { documents?: { name: string; fields?: Record<string, { stringValue?: string }> }[] };
+  return (body.documents ?? []).map((doc) => ({
+    id: doc.name.split("/").pop() ?? "",
+    name: doc.fields?.name?.stringValue ?? "Guest",
+    text: doc.fields?.text?.stringValue ?? "",
+    createdAt: doc.fields?.createdAt?.stringValue ?? new Date().toISOString(),
+  })).filter((m) => m.text).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+}
+
+export async function createChatMessage(name: string, text: string): Promise<PublicChatMessage> {
+  const token = await accessToken();
+  const response = await fetch(`${firestoreBase()}/portfolioChat?documentId=${crypto.randomUUID()}`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ fields: {
+      name: { stringValue: name },
+      text: { stringValue: text },
+      createdAt: { stringValue: new Date().toISOString() },
+    } }),
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error("Firestore chat write failed");
+  const doc = await response.json() as { name: string; fields?: Record<string, { stringValue?: string }> };
+  return {
+    id: doc.name.split("/").pop() ?? "",
+    name: doc.fields?.name?.stringValue ?? name,
+    text: doc.fields?.text?.stringValue ?? text,
+    createdAt: doc.fields?.createdAt?.stringValue ?? new Date().toISOString(),
+  };
+}
