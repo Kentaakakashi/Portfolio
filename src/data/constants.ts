@@ -299,7 +299,33 @@ export type Experience = {
   skills: SkillNames[];
 };
 
-export const EXPERIENCE: Experience[] = [];
+export const EXPERIENCE: Experience[] = [
+  {
+    id: 1,
+    startDate: "2025",
+    endDate: "Present",
+    title: "Independent Developer",
+    company: "Personal Projects",
+    description: [
+      "Building Theo AI, an Android assistant focused on natural conversation, tutoring, and mobile-first interaction.",
+      "Developing and customizing a 3D portfolio while learning modern web development and deployment.",
+      "Exploring app architecture, APIs, Git, and practical debugging by shipping projects in public.",
+    ],
+    skills: [SkillNames.TS, SkillNames.REACT, SkillNames.NEXTJS, SkillNames.GIT],
+  },
+  {
+    id: 2,
+    startDate: "2024",
+    endDate: "Present",
+    title: "Computer Science Learner",
+    company: "Self-directed learning",
+    description: [
+      "Learning software development through hands-on experiments and open-source projects.",
+      "Practicing how to break down features, understand existing code, and fix real build and integration issues.",
+    ],
+    skills: [SkillNames.JS, SkillNames.TS, SkillNames.LINUX, SkillNames.GIT],
+  },
+];
 
 export const themeDisclaimers = {
   light: [
