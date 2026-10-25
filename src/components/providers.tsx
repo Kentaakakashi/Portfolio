@@ -16,7 +16,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     disableTransitionOnChange
   >
     <MotionPreferences>
-      <Suspense fallback={children}>
+      <Suspense fallback={null}>
         <Preloader>
           <SocketContextProvider>
             <GameContextProvider>
