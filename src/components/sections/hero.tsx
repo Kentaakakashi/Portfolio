@@ -11,7 +11,7 @@ import {
 import { usePreloader } from "../preloader";
 import { BlurIn, BoxReveal } from "../reveal-animations";
 import ScrollDownIcon from "../scroll-down-icon";
-import { SiGithub } from "react-icons/si";
+import { SiGithub, SiDiscord } from "react-icons/si";
 import { config } from "@/data/config";
 
 import SectionWrapper from "../ui/section-wrapper";
@@ -108,6 +108,7 @@ const HeroSection = () => {
                         <SiGithub size={24} />
                       </Button>
                     </Link>
+                    <Link href={config.social.discord} target="_blank" rel="noreferrer" className="cursor-can-hover"><Button variant={"outline"} aria-label="Discord"><SiDiscord size={24} /></Button></Link>
                   </div>
                 </div>
               </div>
