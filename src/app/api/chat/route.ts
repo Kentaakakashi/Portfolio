@@ -5,7 +5,8 @@ export async function GET() {
   try {
     const messages = await listChatMessages();
     return NextResponse.json({ messages }, { headers: { "Cache-Control": "no-store, max-age=0" } });
-  } catch {
+  } catch (error) {
+    console.error("Chat history read failed:", error instanceof Error ? error.message : "unknown error");
     return NextResponse.json({ error: "Chat is temporarily unavailable. Check Firebase configuration." }, { status: 503 });
   }
 }
@@ -18,7 +19,8 @@ export async function POST(request: Request) {
     if (!text) return NextResponse.json({ error: "Message cannot be empty." }, { status: 400 });
     const message = await createChatMessage(name || "Guest", text);
     return NextResponse.json({ message }, { status: 201, headers: { "Cache-Control": "no-store, max-age=0" } });
-  } catch {
+  } catch (error) {
+    console.error("Chat message write failed:", error instanceof Error ? error.message : "unknown error");
     return NextResponse.json({ error: "Could not send message. Check Firebase configuration." }, { status: 503 });
   }
 }
