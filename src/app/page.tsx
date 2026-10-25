@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import OnlineUsers from "@/components/realtime/online-users";
 import SmoothScroll from "@/components/smooth-scroll";
 import { cn } from "@/lib/utils";
 import AnimatedBackground from "@/components/animated-background";
@@ -17,7 +16,6 @@ function MainPage() {
       <AnimatedBackground />
       <main className={cn("bg-slate-100 dark:bg-transparent")}>
         <HeroSection />
-        <OnlineUsers />
         <SkillsSection />
         <ExperienceSection />
         <ProjectsSection />
