@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import SocketContextProvider from "@/contexts/socketio";
 import Preloader from "./preloader";
 import { ThemeProvider } from "./theme-provider";
@@ -15,16 +16,18 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     disableTransitionOnChange
   >
     <MotionPreferences>
-      <Preloader>
-        <SocketContextProvider>
-          <GameContextProvider>
-            <TooltipProvider>
-              {children}
-            </TooltipProvider>
-          </GameContextProvider>
-          <Toaster />
-        </SocketContextProvider>
-      </Preloader>
+      <Suspense fallback={children}>
+        <Preloader>
+          <SocketContextProvider>
+            <GameContextProvider>
+              <TooltipProvider>
+                {children}
+              </TooltipProvider>
+            </GameContextProvider>
+            <Toaster />
+          </SocketContextProvider>
+        </Preloader>
+      </Suspense>
     </MotionPreferences>
   </ThemeProvider>;
 };
