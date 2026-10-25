@@ -17,11 +17,15 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as { skill?: unknown };
+    const body = await request.json() as { skill?: unknown; amount?: unknown };
     if (typeof body.skill !== "string" || !allowedSkills.has(body.skill)) {
       return NextResponse.json({ error: "Unknown keyboard skill" }, { status: 400 });
     }
-    await incrementKeyboardCount(body.skill);
+    const amount = body.amount === undefined ? 1 : body.amount;
+    if (typeof amount !== "number" || !Number.isSafeInteger(amount) || amount < 1 || amount > 5000) {
+      return NextResponse.json({ error: "Invalid press batch" }, { status: 400 });
+    }
+    await incrementKeyboardCount(body.skill, amount);
     return NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("Keyboard count update failed:", error instanceof Error ? error.message : "unknown error");
