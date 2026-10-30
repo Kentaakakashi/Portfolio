@@ -1,7 +1,7 @@
 .body {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 18px;
 
   a {
     color: hsl(var(--foreground));
@@ -14,7 +14,7 @@
     display: flex;
     overflow: hidden;
     font-size: 32px;
-    padding-right: 30px;
+    padding-right: 16px;
     padding-top: 10px;
     font-weight: 800;
   }
