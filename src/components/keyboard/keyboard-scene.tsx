@@ -86,11 +86,17 @@ export default function KeyboardScene({ maxDpr }: { maxDpr: number }) {
   const onPointerEvent = useCallback((event: ScenePointerEvent) => {
     const pointer = `pointer:${event.pointerId}`;
     switch (event.type) {
+      // Hover is visual-only. A key is pressed only by a deliberate primary click/tap.
       case "hoverEnter":
-        if (event.pointerType === "mouse") input.press("hover", event.nodeId);
+      case "hoverExit":
         break;
-      case "hoverExit": input.release("hover", event.nodeId); break;
-      case "pointerDown": input.press(pointer, event.nodeId); break;
+      case "pointerDown": {
+        const pointerWithButton = event as ScenePointerEvent & { button?: number };
+        if (event.pointerType !== "mouse" || pointerWithButton.button === 0) {
+          input.press(pointer, event.nodeId);
+        }
+        break;
+      }
       case "pointerUp":
       case "pointerCancel": input.release(pointer); break;
     }
@@ -185,7 +191,7 @@ export default function KeyboardScene({ maxDpr }: { maxDpr: number }) {
           <div aria-live="polite" className="sr-only">
             <p className="text-xl font-semibold">{selected?.label ?? "Explore my skills"}</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              {selected?.shortDescription ?? "Hover, tap, or press a letter key"}
+              {selected?.shortDescription ?? "Click a key or press a letter key"}
             </p>
           </div>
           <a
