@@ -4,12 +4,15 @@
   .wrapper {
     position: relative;
     display: flex;
-    gap: 50px;
-    margin-bottom: 12px; // prev 80px
+    width: 100%;
+    gap: 0;
+    margin-bottom: 0;
   }
 
   .container {
     display: flex;
+    width: 100%;
+    min-width: 0;
     flex-direction: column;
     justify-content: space-between;
   }
@@ -18,8 +21,7 @@
 @media only screen and (min-width: 1000px) {
   .nav {
     .wrapper {
-      margin-bottom: 0px;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
   }
 }
