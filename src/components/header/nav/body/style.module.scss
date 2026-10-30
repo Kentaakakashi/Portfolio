@@ -23,11 +23,11 @@
 @media only screen and (min-width: 1000px) {
   .body {
     max-width: 1200px;
-    margin-top: 80px;
+    margin-top: 36px;
 
     p {
       font-size: 5vw;
-      padding-right: 2vw;
+      padding-right: clamp(16px, 2vw, 32px);
     }
   }
 }
